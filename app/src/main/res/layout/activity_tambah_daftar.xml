@@ -57,6 +57,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="tambah"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView"
@@ -68,6 +69,7 @@
         android:layout_height="wrap_content"
         android:text="update"
         app:layout_constraintEnd_toEndOf="@+id/button_tambah"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/button_tambah"
         app:layout_constraintTop_toBottomOf="@+id/button_tambah" />
 

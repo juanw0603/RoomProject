@@ -13,9 +13,9 @@ interface daftarBelanjaDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(daftar: daftarBelanja)
 
-    @Query("UPDATE daftarBelanja SET tanggal =:isi_tanggal, item =:isi_item, jumlah =:isi_jumlah, status=:isi_status " +
+    @Query("UPDATE daftarBelanja SET tanggal =:isi_tanggal, item =:isi_item, jumlah =:isi_jumlah, status=0 " +
             "WHERE id=:pilihid")
-    fun update(isi_tanggal:String ,isi_item: String , isi_jumlah: String, isi_status:Int,
+    fun update(isi_tanggal:String ,isi_item: String , isi_jumlah: String,
                pilihid: Int)
 
     @Query("select * from daftarBelanja Where id=:isi_id")

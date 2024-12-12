@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -35,16 +36,23 @@ class       TambahDaftar : AppCompatActivity() {
         DB = daftarBelanjaDB.getDataBase(this)
         var tanggal = getCurrentDate()
         btnTambah.setOnClickListener{
-            CoroutineScope(Dispatchers.IO).async {
-                DB.fundaftarBelanjaDAO().insert(
-                    daftarBelanja(
-                        tanggal=tanggal,
-                        item = etItem.text.toString(),
-                        jumlah = etJumlah.text.toString()
+
+            if (etItem.text.isEmpty() || etJumlah.text.isEmpty()){
+                Toast.makeText(this@TambahDaftar,"input tidak boleh kosong", Toast.LENGTH_LONG).show()
+
+            }else{
+                CoroutineScope(Dispatchers.IO).async {
+                    DB.fundaftarBelanjaDAO().insert(
+                        daftarBelanja(
+                            tanggal=tanggal,
+                            item = etItem.text.toString(),
+                            jumlah = etJumlah.text.toString()
+                        )
                     )
-                )
+                }
+                startActivity(Intent(this@TambahDaftar,MainActivity::class.java))
             }
-            startActivity(Intent(this@TambahDaftar,MainActivity::class.java))
+
         }
     }
 

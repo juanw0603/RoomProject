@@ -1,5 +1,6 @@
 package app.c14210290.room
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -15,7 +16,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 
-class TambahDaftar : AppCompatActivity() {
+class       TambahDaftar : AppCompatActivity() {
     private lateinit var DB :daftarBelanjaDB
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +44,7 @@ class TambahDaftar : AppCompatActivity() {
                     )
                 )
             }
+            startActivity(Intent(this@TambahDaftar,MainActivity::class.java))
         }
     }
 

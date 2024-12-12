@@ -3,10 +3,16 @@ package app.c14210290.room
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import app.c14210290.room.database.daftarBelanja
 import app.c14210290.room.database.daftarBelanjaDB
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
@@ -15,8 +21,12 @@ import kotlinx.coroutines.async
 
 class MainActivity : AppCompatActivity() {
     private lateinit var DB : daftarBelanjaDB
+    private lateinit var adapterDaftar: adapterDaftar
+    private var arDaftar: MutableList<daftarBelanja> = mutableListOf()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
@@ -25,6 +35,11 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        var _rvDaftar = findViewById<RecyclerView>(R.id.rvNotes)
+        adapterDaftar = adapterDaftar(arDaftar)
+        _rvDaftar.layoutManager= LinearLayoutManager(this)
+        _rvDaftar.adapter = adapterDaftar
         var fabAdd = findViewById<FloatingActionButton>(R.id.fabAdd)
         DB = daftarBelanjaDB.getDataBase(this)
         fabAdd.setOnClickListener{
@@ -35,9 +50,8 @@ class MainActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).async {
             val daftarBelanja = DB.fundaftarBelanjaDAO().selectALL()
             Log.d("data ROOM", daftarBelanja.toString())
+            adapterDaftar.isiData(daftarBelanja)
+
         }
     }
-
-
-
 }
